@@ -1,0 +1,12 @@
+{
+  "name": "minipay-snippets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/celo-org/minipay-snippets.git",
+  "author": "Harpal Jadeja <jadejaharpal14@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "5.7.2",
+    "viem": "^1.19.9"
+  }
+}
