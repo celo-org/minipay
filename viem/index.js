@@ -1,8 +1,7 @@
 const { createPublicClient, http } = require("viem");
 const { celo } = require("viem/chains");
-const {
-    checkIfTransactionSucceeded,
-} = require("./checkIfTransactionSucceeded");
+const { estimateGasPrice } = require("./estimateGasPrice");
+const { STABLE_TOKEN_ADDRESS } = require("../constants");
 
 const publicClient = createPublicClient({
     chain: celo,
@@ -10,10 +9,7 @@ const publicClient = createPublicClient({
 });
 
 async function main() {
-    // return await checkIfTransactionSucceeded(
-    //     publicClient,
-    //     "0x715628c23b1f010a6dba4e178f3eb990b4bdc26a8da85e1ca8ef862e9ba698a5"
-    // );
+    // return await estimateGasPrice(publicClient);
 }
 
 main()
