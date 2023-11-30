@@ -6,6 +6,7 @@
   "author": "Harpal Jadeja <jadejaharpal14@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@celo/abis": "^9.0.6",
     "ethers": "5.7.2",
     "viem": "^1.19.9"
   }
