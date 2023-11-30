@@ -1,6 +1,8 @@
 const { createPublicClient, http } = require("viem");
 const { celo } = require("viem/chains");
-const { checkCUSDBalance } = require("./checkCUSDBalance");
+const {
+    checkIfTransactionSucceeded,
+} = require("./checkIfTransactionSucceeded");
 
 const publicClient = createPublicClient({
     chain: celo,
@@ -8,9 +10,9 @@ const publicClient = createPublicClient({
 });
 
 async function main() {
-    // return await checkCUSDBalance(
+    // return await checkIfTransactionSucceeded(
     //     publicClient,
-    //     "0x765de816845861e75a25fca122bb6898b8b1282a"
+    //     "0x715628c23b1f010a6dba4e178f3eb990b4bdc26a8da85e1ca8ef862e9ba698a5"
     // );
 }
 

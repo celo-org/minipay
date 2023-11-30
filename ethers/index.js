@@ -1,13 +1,15 @@
 const ethers = require("ethers");
 const { providers } = ethers;
-const { checkCUSDBalance } = require("./checkCUSDBalance");
+const {
+    checkIfTransactionSucceeded,
+} = require("./checkIfTransactionSucceeded");
 
 const provider = new providers.JsonRpcProvider("https://forno.celo.org");
 
 async function main() {
-    // return await checkCUSDBalance(
+    // return await checkIfTransactionSucceeded(
     //     provider,
-    //     "0x765de816845861e75a25fca122bb6898b8b1282a"
+    //     "0x715628c23b1f010a6dba4e178f3eb990b4bdc26a8da85e1ca8ef862e9ba698a5"
     // );
 }
 
