@@ -192,6 +192,63 @@ const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
 let gasPrice = await estimateGasPrice(provider, STABLE_TOKEN_ADDRESS);
 ```
 
+### Calculate cUSD to be spent for transaction fees
+
+#### Using Ethers
+
+```js
+const { formatEther } = require("ethers/lib/utils");
+
+const provider = new providers.JsonRpcProvider("https://forno.celo.org");
+
+const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
+
+let gasPrice = await estimateGasPrice(provider, STABLE_TOKEN_ADDRESS);
+
+let gasLimit = await estimateGas(
+    provider,
+    {
+        from: "0x8eb02597d85abc268bc4769e06a0d4cc603ab05f",
+        to: "0x4f93fa058b03953c851efaa2e4fc5c34afdfab84",
+        value: "0x1",
+        data: "0x",
+    },
+    STABLE_TOKEN_ADDRESS
+);
+
+let transactionFeesInCUSD = formatEther(
+    BigNumber.from(gasLimit).mul(BigNumber.from(gasPrice)).toString()
+);
+```
+
+#### Using Viem
+
+```js
+const { formatEther } = require("viem");
+
+const publicClient = createPublicClient({
+    chain: celo,
+    transport: http(),
+});
+
+const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
+
+let gasLimit = await estimateGas(
+    publicClient,
+    {
+        account: "0x8eb02597d85abc268bc4769e06a0d4cc603ab05f",
+        to: "0x4f93fa058b03953c851efaa2e4fc5c34afdfab84",
+        value: "0x1",
+        data: "0x",
+    },
+    STABLE_TOKEN_ADDRESS
+);
+
+let gasPrice = await estimateGasPrice(publicClient, STABLE_TOKEN_ADDRESS);
+
+let transactionFeesInCUSD = formatEther(gasLimit * hexToBigInt(gasPrice));
+```
+
 ## Support
 
 Please open issue on this repo.
