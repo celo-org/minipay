@@ -4,9 +4,7 @@ Snippets of code that can be used to implement flows inside MiniPay
 
 ## How to use
 
-### Check cUSD Balance of an address
-
-#### Using Ethers
+### Check cUSD Balance of an address (Using Ethers)
 
 [Code](./ethers/checkCUSDBalance.js)
 
@@ -16,7 +14,7 @@ const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mai
 let balance = await checkCUSDBalance(provider, address); // In Ether unit
 ```
 
-#### Using Viem
+### Check cUSD Balance of an address (Using Viem)
 
 [Code](./viem/checkCUSDBalance.js)
 
@@ -29,9 +27,7 @@ const publicClient = createPublicClient({
 let balance = await checkCUSDBalance(publicClient, address); // In Ether unit
 ```
 
-### Check If a transaction succeeded
-
-#### Using Ethers
+### Check If a transaction succeeded (Using Ethers)
 
 [Code](./ethers/checkIfTransactionSucceeded.js)
 
@@ -44,7 +40,7 @@ let transactionStatus = await checkIfTransactionSucceeded(
 );
 ```
 
-#### Using Viem
+### Check If a transaction succeeded (Using Viem)
 
 [Code](./viem/checkIfTransactionSucceeded.js)
 
@@ -60,13 +56,11 @@ let transactionStatus = await checkIfTransactionSucceeded(
 ); // In Ether unit
 ```
 
-### Estimate Gas for a transaction
-
-#### Using Ethers
+### Estimate Gas for a transaction (Using Ethers)
 
 [Code](./ethers/estimateGas.js)
 
-##### Estimate Gas in Celo
+#### Estimate Gas in Celo (Using Ethers)
 
 ```js
 const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mainnet
@@ -80,7 +74,7 @@ let gasLimit = await estimateGas(provider, {
 });
 ```
 
-##### Estimate Gas in cUSD
+#### Estimate Gas in cUSD (Using Ethers)
 
 ```js
 const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mainnet
@@ -100,11 +94,11 @@ let gasLimit = await estimateGas(
 );
 ```
 
-#### Using Viem
+### Estimate Gas for a transaction (Using Viem)
 
 [Code](./viem/estimateGas.js)
 
-##### Estimate Gas in Celo
+#### Estimate Gas in Celo (Using Viem)
 
 ```js
 const publicClient = createPublicClient({
@@ -120,7 +114,7 @@ let gasLimit = await estimateGas(publicClient, {
 });
 ```
 
-##### Estimate Gas in cUSD
+#### Estimate Gas in cUSD (Using Viem)
 
 ```js
 const publicClient = createPublicClient({
@@ -142,13 +136,11 @@ let gasLimit = await estimateGas(
 );
 ```
 
-### Estimate Gas Price for a transaction
-
-#### Using Ethers
+### Estimate Gas Price for a transaction (Using Ethers)
 
 [Code](./ethers/estimateGasPrice.js)
 
-##### Estimate Gas Price in Celo
+#### Estimate Gas Price in Celo (Using Ethers)
 
 ```js
 const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mainnet
@@ -156,7 +148,7 @@ const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mai
 let gasPrice = await estimateGasPrice(provider);
 ```
 
-##### Estimate Gas Price in cUSD
+#### Estimate Gas Price in cUSD (Using Ethers)
 
 ```js
 const provider = new providers.JsonRpcProvider("https://forno.celo.org"); // Mainnet
@@ -166,9 +158,11 @@ const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
 let gasPrice = await estimateGasPrice(provider, STABLE_TOKEN_ADDRESS);
 ```
 
-#### Using Viem
+### Estimate Gas Price for a transaction (Using Viem)
 
-##### Estimate Gas Price in Celo
+[Code](./viem/estimateGasPrice.js)
+
+#### Estimate Gas Price in Celo (Using Viem)
 
 ```js
 const publicClient = createPublicClient({
@@ -179,7 +173,7 @@ const publicClient = createPublicClient({
 let gasPrice = await estimateGasPrice(publicClient);
 ```
 
-##### Estimate Gas Price in cUSD
+#### Estimate Gas Price in cUSD (Using Viem)
 
 ```js
 const publicClient = createPublicClient({
@@ -192,13 +186,9 @@ const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
 let gasPrice = await estimateGasPrice(provider, STABLE_TOKEN_ADDRESS);
 ```
 
-### Calculate cUSD to be spent for transaction fees
-
-#### Using Ethers
+### Calculate cUSD to be spent for transaction fees (Using Ethers)
 
 ```js
-const { formatEther } = require("ethers/lib/utils");
-
 const provider = new providers.JsonRpcProvider("https://forno.celo.org");
 
 const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
@@ -221,11 +211,9 @@ let transactionFeesInCUSD = formatEther(
 );
 ```
 
-#### Using Viem
+#### Calculate cUSD to be spent for transaction fees (Using Viem)
 
 ```js
-const { formatEther } = require("viem");
-
 const publicClient = createPublicClient({
     chain: celo,
     transport: http(),
@@ -247,6 +235,220 @@ let gasLimit = await estimateGas(
 let gasPrice = await estimateGasPrice(publicClient, STABLE_TOKEN_ADDRESS);
 
 let transactionFeesInCUSD = formatEther(gasLimit * hexToBigInt(gasPrice));
+```
+
+#### Lookup phone number registered under MiniPay issuer (Using Ethers)
+
+[Code](./ethers/SocialConnect/index.js)
+
+```js
+let wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY, provider);
+
+const issuer = new SocialConnectIssuer(wallet, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to lookup
+ *
+ * The below phone number is registered on the testnet issuer mentioned below.
+ */
+const identifier = "+911234567890";
+
+/**
+ * You can lookup under multiple issuers in one request.
+ *
+ * Below is the MiniPay issuer address on Mainnet.
+ *
+ * Note: Remember to make your environment variable ENVIRONMENT=MAINNET
+ */
+let issuerAddresses = ["0x7888612486844Bb9BE598668081c59A9f7367FBc"];
+
+// A testnet issuer we setup for you to lookup on testnet.
+// let issuerAddresses = ["0xDF7d8B197EB130cF68809730b0D41999A830c4d7"];
+
+let results = await issuer.lookup(identifier, identifierType, issuerAddresses);
+```
+
+#### Lookup phone number registered under MiniPay issuer (Using Viem)
+
+[Code](./viem/SocialConnect/index.js)
+
+```js
+let account = privateKeyToAccount(process.env.ISSUER_PRIVATE_KEY);
+
+let walletClient = createWalletClient({
+    account,
+    transport: http(),
+    chain,
+});
+
+const issuer = new SocialConnectIssuer(walletClient, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to lookup
+ *
+ * The below phone number is registered on the testnet issuer mentioned below.
+ */
+const identifier = "+911234567890";
+
+/**
+ * You can lookup under multiple issuers in one request.
+ *
+ * Below is the MiniPay issuer address on Mainnet.
+ *
+ * Note: Remember to make your environment variable ENVIRONMENT=MAINNET
+ */
+let issuerAddresses = ["0x7888612486844Bb9BE598668081c59A9f7367FBc"];
+
+// A testnet issuer we setup for you to lookup on testnet.
+// let issuerAddresses = ["0xDF7d8B197EB130cF68809730b0D41999A830c4d7"];
+
+let results = await issuer.lookup(identifier, identifierType, issuerAddresses);
+```
+
+#### Registering phone number using your own issuer (Using Ethers)
+
+[Code](./ethers/SocialConnect/index.js)
+
+```js
+let wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY, provider);
+
+const issuer = new SocialConnectIssuer(wallet, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to register
+ */
+const identifier = "+911234567890";
+
+let addressToRegister = "<USER_ADDRESS>";
+
+let results = await issuer.registerOnChainIdentifier(
+    identifier,
+    identifierType,
+    addressToRegister
+);
+```
+
+#### Registering phone number using your own issuer (Using Viem)
+
+[Code](./viem/SocialConnect/index.js)
+
+```js
+let account = privateKeyToAccount(process.env.ISSUER_PRIVATE_KEY);
+
+let walletClient = createWalletClient({
+    account,
+    transport: http(),
+    chain,
+});
+
+const issuer = new SocialConnectIssuer(walletClient, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to register
+ */
+const identifier = "+911234567890";
+
+let addressToRegister = "<USER_ADDRESS>";
+
+let results = await issuer.registerOnChainIdentifier(
+    identifier,
+    identifierType,
+    addressToRegister
+);
+```
+
+#### De-Registering phone number registered under your own issuer (Using Ethers)
+
+[Code](./ethers/SocialConnect/index.js)
+
+```js
+let wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY, provider);
+
+const issuer = new SocialConnectIssuer(wallet, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to de-register
+ */
+const identifier = "+911234567890";
+
+let addressToDeRegister = "<USER_ADDRESS>";
+
+let results = await issuer.deregisterOnChainIdentifier(
+    identifier,
+    identifierType,
+    addressToDeRegister
+);
+```
+
+#### DeRegistering phone number registered under your own issuer (Using Viem)
+
+[Code](./viem/SocialConnect/index.js)
+
+```js
+let account = privateKeyToAccount(process.env.ISSUER_PRIVATE_KEY);
+
+let walletClient = createWalletClient({
+    account,
+    transport: http(),
+    chain,
+});
+
+const issuer = new SocialConnectIssuer(walletClient, {
+    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
+    rawKey: process.env.DEK_PRIVATE_KEY,
+});
+
+await issuer.initialize();
+
+const identifierType = IdentifierPrefix.PHONE_NUMBER;
+
+/**
+ * Any phone number you want to de-register
+ */
+const identifier = "+911234567890";
+
+let addressToDeRegister = "<USER_ADDRESS>";
+
+let results = await issuer.deregisterOnChainIdentifier(
+    identifier,
+    identifierType,
+    addressToDeRegister
+);
 ```
 
 ## Support
