@@ -211,7 +211,7 @@ let transactionFeesInCUSD = formatEther(
 );
 ```
 
-#### Calculate cUSD to be spent for transaction fees (Using Viem)
+### Calculate cUSD to be spent for transaction fees (Using Viem)
 
 ```js
 const publicClient = createPublicClient({
@@ -237,7 +237,7 @@ let gasPrice = await estimateGasPrice(publicClient, STABLE_TOKEN_ADDRESS);
 let transactionFeesInCUSD = formatEther(gasLimit * hexToBigInt(gasPrice));
 ```
 
-#### Lookup phone number registered under MiniPay issuer (Using Ethers)
+### Lookup phone number registered under MiniPay issuer (Using Ethers)
 
 [Code](./ethers/SocialConnect/index.js)
 
@@ -275,7 +275,7 @@ let issuerAddresses = ["0x7888612486844Bb9BE598668081c59A9f7367FBc"];
 let results = await issuer.lookup(identifier, identifierType, issuerAddresses);
 ```
 
-#### Lookup phone number registered under MiniPay issuer (Using Viem)
+### Lookup phone number registered under MiniPay issuer (Using Viem)
 
 [Code](./viem/SocialConnect/index.js)
 
@@ -319,7 +319,7 @@ let issuerAddresses = ["0x7888612486844Bb9BE598668081c59A9f7367FBc"];
 let results = await issuer.lookup(identifier, identifierType, issuerAddresses);
 ```
 
-#### Registering phone number using your own issuer (Using Ethers)
+### Registering phone number using your own issuer (Using Ethers)
 
 [Code](./ethers/SocialConnect/index.js)
 
@@ -349,7 +349,7 @@ let results = await issuer.registerOnChainIdentifier(
 );
 ```
 
-#### Registering phone number using your own issuer (Using Viem)
+### Registering phone number using your own issuer (Using Viem)
 
 [Code](./viem/SocialConnect/index.js)
 
@@ -385,7 +385,7 @@ let results = await issuer.registerOnChainIdentifier(
 );
 ```
 
-#### De-Registering phone number registered under your own issuer (Using Ethers)
+### De-Registering phone number registered under your own issuer (Using Ethers)
 
 [Code](./ethers/SocialConnect/index.js)
 
@@ -415,7 +415,7 @@ let results = await issuer.deregisterOnChainIdentifier(
 );
 ```
 
-#### DeRegistering phone number registered under your own issuer (Using Viem)
+### De-Registering phone number registered under your own issuer (Using Viem)
 
 [Code](./viem/SocialConnect/index.js)
 
