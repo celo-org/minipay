@@ -9,7 +9,7 @@
     "@celo/abis": "^10.0.0",
     "@celo/identity": "^5.1.1",
     "dotenv": "^16.4.1",
-    "ethers": "5.7.2",
+    "ethers": "6.13.4",
     "viem": "^1.19.9"
   }
 }
