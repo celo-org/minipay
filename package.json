@@ -11,5 +11,15 @@
     "dotenv": "^16.4.1",
     "ethers": "6.13.4",
     "viem": "^1.19.9"
+  },
+  "resolutions": {
+    "proxy-addr": "^2.0.8",
+    "tar": "^7.5.19",
+    "pbkdf2": "^3.1.3",
+    "sha.js": "^2.4.12",
+    "cipher-base": "^1.0.5",
+    "form-data": "^2.5.4",
+    "elliptic": "^6.6.1",
+    "protobufjs": "^7.5.5"
   }
 }
