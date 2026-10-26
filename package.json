@@ -20,6 +20,6 @@
     "cipher-base": "^1.0.5",
     "form-data": "^2.5.4",
     "elliptic": "^6.6.1",
-    "protobufjs": "^7.5.5"
+    "protobufjs": "^8.0.0"
   }
 }
