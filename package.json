@@ -10,7 +10,7 @@
     "@celo/identity": "^5.1.1",
     "dotenv": "^16.4.1",
     "ethers": "6.13.4",
-    "viem": "^1.19.9"
+    "viem": "^2.0.0"
   },
   "resolutions": {
     "proxy-addr": "^2.0.8",
